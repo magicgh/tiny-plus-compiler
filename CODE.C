@@ -33,9 +33,9 @@ void emitComment( char * c )
  */
 void emitRO( char *op, int r, int s, int t, char *c)
 { fprintf(code,"%3d:  %5s  %d,%d,%d ",emitLoc++,op,r,s,t);
-  if (TraceCode) fprintf(code,"\t%s",c) ;
-  fprintf(code,"\n") ;
-  if (highEmitLoc < emitLoc) highEmitLoc = emitLoc ;
+    if (TraceCode) fprintf(code,"\t%s",c) ;
+    fprintf(code,"\n") ;
+    if (highEmitLoc < emitLoc) highEmitLoc = emitLoc ;
 } /* emitRO */
 
 /* Procedure emitRM emits a register-to-memory
@@ -48,9 +48,9 @@ void emitRO( char *op, int r, int s, int t, char *c)
  */
 void emitRM( char * op, int r, int d, int s, char *c)
 { fprintf(code,"%3d:  %5s  %d,%d(%d) ",emitLoc++,op,r,d,s);
-  if (TraceCode) fprintf(code,"\t%s",c) ;
-  fprintf(code,"\n") ;
-  if (highEmitLoc < emitLoc)  highEmitLoc = emitLoc ;
+    if (TraceCode) fprintf(code,"\t%s",c) ;
+    fprintf(code,"\n") ;
+    if (highEmitLoc < emitLoc)  highEmitLoc = emitLoc ;
 } /* emitRM */
 
 /* Function emitSkip skips "howMany" code
@@ -59,9 +59,9 @@ void emitRM( char * op, int r, int d, int s, char *c)
  */
 int emitSkip( int howMany)
 {  int i = emitLoc;
-   emitLoc += howMany ;
-   if (highEmitLoc < emitLoc)  highEmitLoc = emitLoc ;
-   return i;
+    emitLoc += howMany ;
+    if (highEmitLoc < emitLoc)  highEmitLoc = emitLoc ;
+    return i;
 } /* emitSkip */
 
 /* Procedure emitBackup backs up to 
@@ -69,7 +69,7 @@ int emitSkip( int howMany)
  */
 void emitBackup( int loc)
 { if (loc > highEmitLoc) emitComment("BUG in emitBackup");
-  emitLoc = loc ;
+    emitLoc = loc ;
 } /* emitBackup */
 
 /* Procedure emitRestore restores the current 
@@ -89,9 +89,9 @@ void emitRestore(void)
  */
 void emitRM_Abs( char *op, int r, int a, char * c)
 { fprintf(code,"%3d:  %5s  %d,%d(%d) ",
-               emitLoc,op,r,a-(emitLoc+1),pc);
-  ++emitLoc ;
-  if (TraceCode) fprintf(code,"\t%s",c) ;
-  fprintf(code,"\n") ;
-  if (highEmitLoc < emitLoc) highEmitLoc = emitLoc ;
+          emitLoc,op,r,a-(emitLoc+1),pc);
+    ++emitLoc ;
+    if (TraceCode) fprintf(code,"\t%s",c) ;
+    fprintf(code,"\n") ;
+    if (highEmitLoc < emitLoc) highEmitLoc = emitLoc ;
 } /* emitRM_Abs */

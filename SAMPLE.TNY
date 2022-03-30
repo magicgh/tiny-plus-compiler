@@ -1,13 +1,44 @@
+/*
 { Sample program
   in TINY language -
   computes factorial
 }
+//
+    Sample program
+    in TINY language -
+    computes factorial
+//
+*/
 read x; { input an integer }
 if 0 < x then { don't compute if x <= 0 }
   fact := 1;
+  num := 1.75;
+  num2 := 2.000000;
+  num3 := 0.485;
+  num4 :=3434.3433333;
+num4 :=.3433333;
+  123ABC := 34343232;
+  num5 := 2323E34;
+  num6 := 2323E+34;
+  num7 := 2323E-34;
+  num8 := 2323e-34;
+  num9 := e34;
+  num10 := E34.0;
+  num11 := E+34;
+  num12 := 12.23E+34;
+  num13 := 12.23E0.34;
+  num14 := 12.23E34.12;
+  num15 := 12.23E+34.12;
+  num16 := 12.23E11;
+  num17 := 0.23E-11;
+  num18 := E-11.3;
+  num19 := 23233.3434343443E1230202;
+  num20 : 34num19 := 23233.3434343443E1230202;
+
+
   repeat
-    fact := fact * x;
-    x := x - 1
+    fact := fact / x;
+    x := x - 10
   until x = 0;
   write fact  { output factorial of x }
 end

@@ -10,6 +10,7 @@ CFLAGS =
 
 OBJS = main.o util.o scan.o parse.o symtab.o analyze.o code.o cgen.o
 OUTPUTS = tiny.exe tm.exe main.o util.o scan.o parse.o symtab.o analyze.o code.o cgen.o tm.o
+
 tiny.exe: $(OBJS)
 	$(CC) $(CFLAGS) -o tiny $(OBJS)
 

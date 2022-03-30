@@ -25,16 +25,16 @@
 /* MAXRESERVED = the number of reserved words */
 #define MAXRESERVED 8
 
-typedef enum 
+typedef enum
     /* book-keeping tokens */
-   {ENDFILE,ERROR,
+{ENDFILE,ERROR,
     /* reserved words */
     IF,THEN,ELSE,END,REPEAT,UNTIL,READ,WRITE,
     /* multicharacter tokens */
-    ID,NUM,
+    ID,NUM,FLOAT,
     /* special symbols */
     ASSIGN,EQ,LT,PLUS,MINUS,TIMES,OVER,LPAREN,RPAREN,SEMI
-   } TokenType;
+} TokenType;
 
 extern FILE* source; /* source code text file */
 extern FILE* listing; /* listing output text file */
@@ -56,16 +56,16 @@ typedef enum {Void,Integer,Boolean} ExpType;
 #define MAXCHILDREN 3
 
 typedef struct treeNode
-   { struct treeNode * child[MAXCHILDREN];
-     struct treeNode * sibling;
-     int lineno;
-     NodeKind nodekind;
-     union { StmtKind stmt; ExpKind exp;} kind;
-     union { TokenType op;
-             int val;
-             char * name; } attr;
-     ExpType type; /* for type checking of exps */
-   } TreeNode;
+{ struct treeNode * child[MAXCHILDREN];
+    struct treeNode * sibling;
+    int lineno;
+    NodeKind nodekind;
+    union { StmtKind stmt; ExpKind exp;} kind;
+    union { TokenType op;
+        int val;
+        char * name; } attr;
+    ExpType type; /* for type checking of exps */
+} TreeNode;
 
 /**************************************************/
 /***********   Flags for tracing       ************/
@@ -100,5 +100,5 @@ extern int TraceAnalyze;
 extern int TraceCode;
 
 /* Error = TRUE prevents further passes if an error occurs */
-extern int Error; 
+extern int Error;
 #endif
