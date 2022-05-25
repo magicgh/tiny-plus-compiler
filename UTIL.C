@@ -22,12 +22,19 @@ void printToken( TokenType token, const char* tokenString )
         case UNTIL:
         case READ:
         case WRITE:
+        case VAR:
+        case FUNC:
+        case FOR:
+        case LAMBDA:
+        case WHILE:
+        case RETURN:
             fprintf(listing,
                     "reserved word: %s\n",tokenString);
             break;
         case ASSIGN: fprintf(listing,":=\n"); break;
         case LT: fprintf(listing,"<\n"); break;
         case EQ: fprintf(listing,"=\n"); break;
+        case GT: fprintf(listing,">\n"); break;
         case LPAREN: fprintf(listing,"(\n"); break;
         case RPAREN: fprintf(listing,")\n"); break;
         case SEMI: fprintf(listing,";\n"); break;
@@ -35,6 +42,11 @@ void printToken( TokenType token, const char* tokenString )
         case MINUS: fprintf(listing,"-\n"); break;
         case TIMES: fprintf(listing,"*\n"); break;
         case OVER: fprintf(listing,"/\n"); break;
+        case COLON: fprintf(listing, ":\n"); break;
+        case COMMA: fprintf(listing, ",\n"); break;
+        case LMBRACKET: fprintf(listing, "[\n"); break;
+        case RMBRACKET: fprintf(listing, "]\n"); break;
+        case AND: fprintf(listing,"&\n"); break;
         case ENDFILE: fprintf(listing,"EOF\n"); break;
         case NUM:
             fprintf(listing,
@@ -112,7 +124,7 @@ char * copyString(char * s)
 /* Variable indentno is used by printTree to
  * store current number of spaces to indent
  */
-static indentno = 0;
+static int indentno = 0;
 
 /* macros to increase/decrease indentation */
 #define INDENT indentno+=2
@@ -150,6 +162,24 @@ void printTree( TreeNode * tree )
                 case WriteK:
                     fprintf(listing,"Write\n");
                     break;
+                case ReturnK:
+                    fprintf(listing,"Return\n");
+                    break;
+                case VarK:
+                    fprintf(listing,"Variable\n");
+                    break;
+                case FuncK:
+                    fprintf(listing,"Function: %s\n",tree->attr.name);
+                    break;
+                case ForK:
+                    fprintf(listing,"For\n");
+                    break;
+                case CallK:
+                    fprintf(listing,"Call Function: %s\n",tree->attr.name);
+                    break;
+                case WhileK:
+                    fprintf(listing,"While\n");
+                    break;
                 default:
                     fprintf(listing,"Unknown ExpNode kind\n");
                     break;
@@ -167,14 +197,26 @@ void printTree( TreeNode * tree )
                 case IdK:
                     fprintf(listing,"Id: %s\n",tree->attr.name);
                     break;
+                case DimK:
+                    fprintf(listing,"Dimension: \n");
+                    break;
+                case ValueK:
+                    fprintf(listing,"Value: \n");
+                    break;
+                case ParamsK:
+                    fprintf(listing,"Parameters: \n");
+                    break;
                 default:
                     fprintf(listing,"Unknown ExpNode kind\n");
                     break;
             }
         }
         else fprintf(listing,"Unknown node kind\n");
-        for (i=0;i<MAXCHILDREN;i++)
-            printTree(tree->child[i]);
+        for (i=0;i<MAXCHILDREN;i++) {
+            if(tree->child[i] != NULL)
+                printTree(tree->child[i]);
+
+        }
         tree = tree->sibling;
     }
     UNINDENT;

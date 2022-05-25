@@ -23,17 +23,17 @@
 #endif
 
 /* MAXRESERVED = the number of reserved words */
-#define MAXRESERVED 8
+#define MAXRESERVED 14
 
 typedef enum
     /* book-keeping tokens */
 {ENDFILE,ERROR,
     /* reserved words */
-    IF,THEN,ELSE,END,REPEAT,UNTIL,READ,WRITE,
+    IF,THEN,ELSE,REPEAT,UNTIL,READ,WRITE,VAR,FUNC,WHILE,RETURN,END,LAMBDA,FOR,AND,
     /* multicharacter tokens */
     ID,NUM,FLOAT,
     /* special symbols */
-    ASSIGN,EQ,LT,PLUS,MINUS,TIMES,OVER,LPAREN,RPAREN,SEMI
+    ASSIGN,EQ,LT,GT,PLUS,MINUS,TIMES,OVER,LPAREN,RPAREN,SEMI,COMMA,LMBRACKET,RMBRACKET,COLON
 } TokenType;
 
 extern FILE* source; /* source code text file */
@@ -47,13 +47,13 @@ extern int lineno; /* source line number for listing */
 /**************************************************/
 
 typedef enum {StmtK,ExpK} NodeKind;
-typedef enum {IfK,RepeatK,AssignK,ReadK,WriteK} StmtKind;
-typedef enum {OpK,ConstK,IdK} ExpKind;
+typedef enum {IfK,RepeatK,AssignK,ReadK,WriteK,WhileK,ReturnK,VarK,FuncK,ForK,CallK} StmtKind;
+typedef enum {OpK,ConstK,IdK,DimK,ValueK,ParamsK} ExpKind;
 
 /* ExpType is used for type checking */
 typedef enum {Void,Integer,Boolean} ExpType;
 
-#define MAXCHILDREN 3
+#define MAXCHILDREN 4
 
 typedef struct treeNode
 { struct treeNode * child[MAXCHILDREN];
